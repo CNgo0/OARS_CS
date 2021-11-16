@@ -1,6 +1,7 @@
-﻿using OARS_CS;
+﻿using Oars;
 using System;
 using System.IO;
+using System.Text;
 
 namespace Examples
 {
@@ -10,9 +11,19 @@ namespace Examples
         {
             string key = File.ReadAllText("cngo.pem");
 
-            byte[] rawFile = OARS.Download("cngo", key, "test.txt", "development");
+            OarsResult oarsResult = Oars.Oars.Download("cngo", key, "tesdt.txt", "development");
 
-            File.WriteAllBytes("test.txt", rawFile);
+            if(oarsResult.contentType != "text/html")
+            {
+                string message = Encoding.ASCII.GetString(oarsResult.data);
+
+                Console.WriteLine("Failed to retrieve file!");
+                Console.WriteLine(message);
+
+                return;
+            }
+
+            File.WriteAllBytes("test.txt", oarsResult.data);
 
             if (File.Exists("test.txt"))
             {
