@@ -11,7 +11,7 @@ namespace Examples
         {
             string key = File.ReadAllText("cngo.pem");
 
-            OarsResult oarsResult = Oars.Oars.Download("cngo", key, "tesdt.txt", "development");
+            OarsResult oarsResult = Oars.Oars.Download("cngo", key, "test.txt", "development");
 
             if(oarsResult.contentType != "text/html")
             {
