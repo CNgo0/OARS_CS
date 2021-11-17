@@ -18,7 +18,8 @@ namespace Examples
             // Download a file from OARS
             OarsResult oarsResult = Oars.Oars.Download(myOarsConfig, "test.txt");
 
-            if(oarsResult.contentType != "text/html")
+            // If the returned content type is application/json, then the transaction failed
+            if (oarsResult.contentType != "text/html")
             {
                 string message = Encoding.ASCII.GetString(oarsResult.data);
 
@@ -28,15 +29,19 @@ namespace Examples
                 return;
             }
 
+            // Success, write the contents to a file
             File.WriteAllBytes("test.txt", oarsResult.data);
 
             if (File.Exists("test.txt"))
             {
+                // Read file and print contents to the screen
                 string[] fileContents = File.ReadAllLines("test.txt");
                 foreach (string line in fileContents)
                 {
                     Console.WriteLine(line);
                 }
+
+                // Clean up
                 File.Delete("test.txt");
             }
             else
