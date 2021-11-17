@@ -11,7 +11,12 @@ namespace Examples
         {
             string key = File.ReadAllText("cngo.pem");
 
-            OarsResult oarsResult = Oars.Oars.Download("cngo", key, "test.txt", "development");
+            // Set up OARS config object
+            OarsConfiguration myOarsConfig = new OarsConfiguration("cngo", key);
+            myOarsConfig.SetEnvironment(OarsApiEnv.Development, OarsDbEnv.Development);
+
+            // Download a file from OARS
+            OarsResult oarsResult = Oars.Oars.Download(myOarsConfig, "test.txt");
 
             if(oarsResult.contentType != "text/html")
             {

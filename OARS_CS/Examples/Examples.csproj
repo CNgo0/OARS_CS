@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OARS_CS\OARS_CS.csproj" />
+    <ProjectReference Include="..\OARS_CS\OARS.csproj" />
   </ItemGroup>
 
   <ItemGroup>

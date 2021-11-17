@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net.Http;
 
 namespace Oars
@@ -7,22 +8,40 @@ namespace Oars
     {
         private const string oarsUrl = "https://apps-nefsc.fisheries.noaa.gov/oars/";
 
-        private static MultipartFormDataContent BuildFormBase(string project, string key, string api_env, string db_env)
+        private static MultipartFormDataContent BuildFormBase(OarsConfiguration config)
         {
-            MultipartFormDataContent form = new MultipartFormDataContent();
+            string apiEnv = string.Empty;
+            string dbEnv = string.Empty;
 
-            form.Add(new StringContent(project), "PROJECT");
-            form.Add(new StringContent(key), "KEY");
-            form.Add(new StringContent(api_env), "API_ENV");
-            form.Add(new StringContent(db_env), "DB_ENV");
+            if (config.apiEnv == OarsApiEnv.Development) apiEnv = "DEVELOPMENT";
+            if (config.apiEnv == OarsApiEnv.Development) apiEnv = "TEST";
+            if (config.apiEnv == OarsApiEnv.Development) apiEnv = "PRODUCTION";
+
+            if (apiEnv == string.Empty)
+                throw new Exception("Invalid OARS API Environment");
+
+            if (config.dbEnv == OarsDbEnv.Development) apiEnv = "DEVELOPMENT";
+            if (config.dbEnv == OarsDbEnv.Development) apiEnv = "TEST";
+            if (config.dbEnv == OarsDbEnv.Development) apiEnv = "PRODUCTION";
+
+            if (dbEnv == string.Empty)
+                throw new Exception("Invalid OARS DB Environment");
+
+            MultipartFormDataContent form = new MultipartFormDataContent
+            {
+                { new StringContent(config.project), "PROJECT" },
+                { new StringContent(config.key), "KEY" },
+                { new StringContent(apiEnv), "API_ENV" },
+                { new StringContent(dbEnv), "DB_ENV" }
+            };
 
             return form;
         }
 
-        public static OarsResult Download(string project, string key, string filename, string environment = "PRODUCTION")
+        public static OarsResult Download(OarsConfiguration config, string filename)
         {
             HttpClient httpClient = new HttpClient();
-            MultipartFormDataContent form = BuildFormBase(project, key, environment, environment);
+            MultipartFormDataContent form = BuildFormBase(config);
             form.Add(new StringContent("file"), "TYPE");
             form.Add(new StringContent(filename), "FILENAME");
 
@@ -40,10 +59,10 @@ namespace Oars
             return result;
         }
 
-        public static string Upload(string project, string key, string filename, byte[] buffer, string environment = "PRODUCTION")
+        public static string Upload(OarsConfiguration config, string filename, byte[] buffer)
         {
             HttpClient httpClient = new HttpClient();
-            MultipartFormDataContent form = BuildFormBase(project, key, environment, environment);
+            MultipartFormDataContent form = BuildFormBase(config);
             form.Add(new StringContent(filename), "FORMAT");
 
             //form.Add(new StringContent("JSON"), "FORMAT"); // Don't need this if we are downloading files
