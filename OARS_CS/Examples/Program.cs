@@ -48,6 +48,10 @@ namespace Examples
             {
                 Console.WriteLine("File was not downloaded!");
             }
+
+            Console.WriteLine("Upload file...");
+            byte[] toUpload = File.ReadAllBytes("uploadMe.txt");
+            Console.WriteLine(toUpload.Length);
         }
     }
 }

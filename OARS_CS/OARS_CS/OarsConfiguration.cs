@@ -27,6 +27,8 @@ namespace Oars
         {
             this.project = project;
             this.key = key;
+            this.apiEnv = OarsApiEnv.Production;
+            this.dbEnv = OarsDbEnv.Production;
         }
 
         public void SetEnvironment(OarsApiEnv apiEnv, OarsDbEnv dbEnv)
