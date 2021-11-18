@@ -13,7 +13,7 @@ namespace Examples
 
             // Set up OARS config object
             OarsConfiguration myOarsConfig = new OarsConfiguration("cngo", key);
-            myOarsConfig.SetEnvironment(OarsApiEnv.Production, OarsDbEnv.Production);
+            myOarsConfig.SetEnvironment(OarsApiEnv.Development, OarsDbEnv.Development);
 
             // Download a file from OARS
             OarsResult oarsResult = Oars.Oars.Download(myOarsConfig, "test.txt");
