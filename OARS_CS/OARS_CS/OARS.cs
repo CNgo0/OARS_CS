@@ -27,13 +27,11 @@ namespace Oars
             if (dbEnv == string.Empty)
                 throw new Exception("Invalid OARS DB Environment");
 
-            MultipartFormDataContent form = new MultipartFormDataContent
-            {
-                { new StringContent(config.project), "PROJECT" },
-                { new StringContent(config.key), "KEY" },
-                { new StringContent(apiEnv), "API_ENV" },
-                { new StringContent(dbEnv), "DB_ENV" }
-            };
+            MultipartFormDataContent form = new MultipartFormDataContent();
+            form.Add(new StringContent(config.project), "PROJECT");
+            form.Add(new StringContent(config.key), "KEY");
+            form.Add(new StringContent(apiEnv), "API_ENV");
+            form.Add(new StringContent(dbEnv), "DB_ENV");
 
             return form;
         }
