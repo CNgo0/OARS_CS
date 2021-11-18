@@ -1,4 +1,4 @@
-﻿using Oars;
+﻿using OARS;
 using System;
 using System.IO;
 using System.Text;
@@ -9,6 +9,8 @@ namespace Examples
     {
         public static void Main()
         {
+            Console.WriteLine("Download file...");
+
             string key = File.ReadAllText("cngo.pem");
 
             // Set up OARS config object
@@ -16,12 +18,12 @@ namespace Examples
             myOarsConfig.SetEnvironment(OarsApiEnv.Development, OarsDbEnv.Development);
 
             // Download a file from OARS
-            OarsResult oarsResult = Oars.Oars.Download(myOarsConfig, "test.txt");
+            OarsResult downloadResult = Oars.Download(myOarsConfig, "test.txt");
 
             // If the returned content type is application/json, then the transaction failed
-            if (oarsResult.contentType != "text/html")
+            if (downloadResult.contentType != "text/html")
             {
-                string message = Encoding.ASCII.GetString(oarsResult.data);
+                string message = Encoding.ASCII.GetString(downloadResult.data);
 
                 Console.WriteLine("Failed to retrieve file!");
                 Console.WriteLine(message);
@@ -30,7 +32,7 @@ namespace Examples
             }
 
             // Success, write the contents to a file
-            File.WriteAllBytes("test.txt", oarsResult.data);
+            File.WriteAllBytes("test.txt", downloadResult.data);
 
             if (File.Exists("test.txt"))
             {
@@ -49,9 +51,12 @@ namespace Examples
                 Console.WriteLine("File was not downloaded!");
             }
 
-            Console.WriteLine("Upload file...");
-            byte[] toUpload = File.ReadAllBytes("uploadMe.txt");
-            Console.WriteLine(toUpload.Length);
+            // Upload a file
+            Console.WriteLine("\nUpload file...");
+            string toUpload = File.ReadAllText("uploadMe.txt");
+            OarsResult uploadResult = Oars.Upload(myOarsConfig, "uploadMe.txt", Encoding.ASCII.GetBytes(toUpload));
+            Console.WriteLine(Encoding.ASCII.GetString(uploadResult.data));
+            Console.WriteLine(uploadResult.contentType);
         }
     }
 }

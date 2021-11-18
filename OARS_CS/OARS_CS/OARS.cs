@@ -2,7 +2,7 @@
 using System.IO;
 using System.Net.Http;
 
-namespace Oars
+namespace OARS
 {
     public static class Oars
     {
@@ -57,14 +57,13 @@ namespace Oars
             return result;
         }
 
-        public static string Upload(OarsConfiguration config, string filename, byte[] buffer)
+        public static OarsResult Upload(OarsConfiguration config, string filename, byte[] buffer)
         {
             HttpClient httpClient = new HttpClient();
             MultipartFormDataContent form = BuildFormBase(config);
-            form.Add(new StringContent(filename), "FORMAT");
-
-            //form.Add(new StringContent("JSON"), "FORMAT"); // Don't need this if we are downloading files
-            //form.Add(new ByteArrayContent(file_bytes, 0, file_bytes.Length), "profile_pic", "hello1.jpg"); // Use this if you're uploading a file
+            form.Add(new StringContent(filename), "FILENAME");
+            form.Add(new StringContent("store"), "TYPE");
+            form.Add(new ByteArrayContent(buffer, 0, buffer.Length), "FILE", filename);
 
             HttpResponseMessage response = httpClient.PostAsync(oarsUrl, form).Result;
 
@@ -73,7 +72,11 @@ namespace Oars
             MemoryStream ms = new MemoryStream();
             response.Content.ReadAsStreamAsync().Result.CopyTo(ms);
 
-            return ms.ToString();
+            OarsResult result;
+            result.data = ms.ToArray();
+            result.contentType = response.Content.Headers.ContentType.MediaType;
+
+            return result;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Oars
+namespace OARS
 {
     public enum OarsApiEnv
     {

@@ -1,4 +1,4 @@
-﻿namespace Oars
+﻿namespace OARS
 {
     public struct OarsResult
     {
