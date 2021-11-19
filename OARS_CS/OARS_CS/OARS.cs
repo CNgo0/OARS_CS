@@ -78,5 +78,26 @@ namespace OARS
 
             return result;
         }
+
+        public static OarsResult UploadJson(OarsConfiguration config, string filename, byte[] buffer)
+        {
+            HttpClient httpClient = new HttpClient();
+            MultipartFormDataContent form = BuildFormBase(config);
+            form.Add(new StringContent(filename), "FILENAME");
+            form.Add(new ByteArrayContent(buffer, 0, buffer.Length), "FILE", filename);
+
+            HttpResponseMessage response = httpClient.PostAsync(oarsUrl, form).Result;
+
+            httpClient.Dispose();
+
+            MemoryStream ms = new MemoryStream();
+            response.Content.ReadAsStreamAsync().Result.CopyTo(ms);
+
+            OarsResult result;
+            result.data = ms.ToArray();
+            result.contentType = response.Content.Headers.ContentType.MediaType;
+
+            return result;
+        }
     }
 }

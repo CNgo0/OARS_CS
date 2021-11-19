@@ -53,8 +53,9 @@ namespace Examples
 
             // Upload a file
             Console.WriteLine("\nUpload file...");
-            string toUpload = File.ReadAllText("uploadMe.txt");
-            OarsResult uploadResult = Oars.Upload(myOarsConfig, "uploadMe.txt", Encoding.ASCII.GetBytes(toUpload));
+            string filename = "oars_demo_records.json";
+            string toUpload = File.ReadAllText(filename);
+            OarsResult uploadResult = Oars.UploadJson(myOarsConfig, filename, Encoding.ASCII.GetBytes(toUpload));
             Console.WriteLine(Encoding.ASCII.GetString(uploadResult.data));
             Console.WriteLine(uploadResult.contentType);
         }

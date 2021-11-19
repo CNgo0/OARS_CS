@@ -1,0 +1,29 @@
+﻿[
+  {
+    "HEADER": {
+      "PROJECT": "CNGO",
+      "APPLICATION": "OARS_DEMO_CS",
+      "SCHEMA": "OARS_DEMO",
+      "TABLE_COUNT": 1,
+      "VERSION": "1.0",
+      "POST_ITEM_ID": "ID",
+      "POST_ITEM_VALUE": 123,
+      "TABLE_LIST": [
+        {
+          "TABLE": "OD_INVENTORY",
+          "ROW_COUNT": 1
+        }
+      ]
+    }
+  },
+  {
+    "OD_INVENTORY": [
+      {
+        "ID": 123,
+        "NAME": "Salmon",
+        "QUANTITY": 42,
+        "PRICE": 12.12
+      }
+    ]
+  }
+]
