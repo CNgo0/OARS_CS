@@ -34,7 +34,7 @@ namespace Examples
             // Success, write the contents to a file
             File.WriteAllBytes("test.txt", downloadResult.data);
 
-            if (File.Exists("test.txt"))
+            if(File.Exists("test.txt"))
             {
                 // Read file and print contents to the screen
                 string[] fileContents = File.ReadAllLines("test.txt");
@@ -53,11 +53,19 @@ namespace Examples
 
             // Upload a file
             Console.WriteLine("\nUpload file...");
-            string filename = "oars_demo_records.json";
-            string toUpload = File.ReadAllText(filename);
-            OarsResult uploadResult = Oars.UploadJson(myOarsConfig, filename, Encoding.ASCII.GetBytes(toUpload));
-            Console.WriteLine(Encoding.ASCII.GetString(uploadResult.data));
-            Console.WriteLine(uploadResult.contentType);
+            string filename1 = "uploadMe.txt";
+            string toUpload = File.ReadAllText(filename1);
+            OarsResult uploadResult1 = Oars.Upload(myOarsConfig, filename1, Encoding.ASCII.GetBytes(toUpload));
+            Console.WriteLine(Encoding.ASCII.GetString(uploadResult1.data));
+            Console.WriteLine(uploadResult1.contentType);
+
+            // Insert records
+            Console.WriteLine("\nInsert records...");
+            string filename2 = "oars_demo_records.json";
+            string toInsert = File.ReadAllText(filename2);
+            OarsResult uploadResult2 = Oars.UploadJson(myOarsConfig, filename2, Encoding.ASCII.GetBytes(toInsert));
+            Console.WriteLine(Encoding.ASCII.GetString(uploadResult2.data));
+            Console.WriteLine(uploadResult2.contentType);
         }
     }
 }
