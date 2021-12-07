@@ -21,7 +21,7 @@ namespace Examples
             OarsResult downloadResult = Oars.Download(myOarsConfig, "test.txt");
 
             // If the returned content type is application/json, then the transaction failed
-            if (downloadResult.contentType != "text/html")
+            if(downloadResult.contentType != "text/html")
             {
                 string message = Encoding.ASCII.GetString(downloadResult.data);
 
@@ -38,7 +38,7 @@ namespace Examples
             {
                 // Read file and print contents to the screen
                 string[] fileContents = File.ReadAllLines("test.txt");
-                foreach (string line in fileContents)
+                foreach(string line in fileContents)
                 {
                     Console.WriteLine(line);
                 }

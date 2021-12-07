@@ -13,16 +13,16 @@ namespace OARS
             string apiEnv = string.Empty;
             string dbEnv = string.Empty;
 
-            if (config.apiEnv == OarsApiEnv.Development) apiEnv = "DEVELOPMENT";
-            if (config.apiEnv == OarsApiEnv.Testing) apiEnv = "TEST";
-            if (config.apiEnv == OarsApiEnv.Production) apiEnv = "PRODUCTION";
+            if(config.apiEnv == OarsApiEnv.Development) apiEnv = "DEVELOPMENT";
+            if(config.apiEnv == OarsApiEnv.Testing) apiEnv = "TEST";
+            if(config.apiEnv == OarsApiEnv.Production) apiEnv = "PRODUCTION";
 
-            if (apiEnv == string.Empty)
+            if(apiEnv == string.Empty)
                 throw new Exception("Invalid OARS API Environment");
 
-            if (config.dbEnv == OarsDbEnv.Development) dbEnv = "DEVELOPMENT";
-            if (config.dbEnv == OarsDbEnv.Testing) dbEnv = "TEST";
-            if (config.dbEnv == OarsDbEnv.Production) dbEnv = "PRODUCTION";
+            if(config.dbEnv == OarsDbEnv.Development) dbEnv = "DEVELOPMENT";
+            if(config.dbEnv == OarsDbEnv.Testing) dbEnv = "TEST";
+            if(config.dbEnv == OarsDbEnv.Production) dbEnv = "PRODUCTION";
 
             if (dbEnv == string.Empty)
                 throw new Exception("Invalid OARS DB Environment");
