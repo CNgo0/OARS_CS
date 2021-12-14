@@ -11,10 +11,10 @@ namespace Examples
         {
             Console.WriteLine("Download file...");
 
-            string key = File.ReadAllText("cngo.pem");
+            string key = File.ReadAllText("demo.pem");
 
             // Set up OARS config object
-            OarsConfiguration myOarsConfig = new OarsConfiguration("cngo", key);
+            OarsConfiguration myOarsConfig = new OarsConfiguration("demo", key);
             myOarsConfig.SetEnvironment(OarsApiEnv.Development, OarsDbEnv.Development);
 
             // Download a file from OARS
