@@ -3,14 +3,12 @@
     public enum OarsApiEnv
     {
         Development,
-        Testing,
         Production
     }
 
     public enum OarsDbEnv
     {
         Development,
-        Testing,
         Production
     }
 
